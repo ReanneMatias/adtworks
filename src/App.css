@@ -1,0 +1,28 @@
+input {
+  padding: 10px;
+  margin: 10px 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 200px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #903749;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #53354a;
+}
+
+h3 {
+  color: #f08a5d;
+  font-size: 24px;
+}
+
