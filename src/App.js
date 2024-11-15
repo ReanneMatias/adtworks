@@ -1,124 +1,56 @@
-// App.js
-import React, { useState, useCallback } from 'react';
-import StudentInfo from './components/StudentInfo';
-import LoginForm from './components/LoginForm';
-import MathOperations from './components/MathOperations';
-import Calculator from './components/Calculator';
-import { ProfileProvider } from './components/ProfileContext';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './index.css';
+import Login from './pages/Public/Login/Login';
+import Register from './pages/Public/Register'; // Ensure this path is correct
+import Dashboard from './pages/Main/Dashboard/Dashboard';
+import Main from './pages/Main/Main';
+import Movie from './pages/Main/Movie/Movie';
+import Lists from './pages/Main/Movie/Lists/Lists';
+import Form from './pages/Main/Movie/Form/Form';
 
-const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [darkTheme, setDarkTheme] = useState(false);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/main',
+    element: <Main />,
+    children: [
+      {
+        path: 'dashboard', // Added the dashboard route
+        element: <Dashboard />,
+      },
+      {
+        path: 'movies',
+        element: <Movie />,
+        children: [
+          {
+            path: '', // Default route for movies, renders Lists
+            element: <Lists />,
+          },
+          {
+            path: 'form/:movieId?', // Optional movieId parameter for the form
+            element: <Form />,
+          },
+        ],
+      },
+    ],
+  },
+]);
 
-    // Handles login
-    const handleLogin = useCallback(() => {
-        setIsLoggedIn(true);
-    }, []);
-
-    // Handles logout with confirmation
-    const handleLogout = useCallback(() => {
-        if (window.confirm('Are you sure you want to logout?')) {
-            setIsLoggedIn(false);
-        }
-    }, []);
-
-    // Toggles between dark and light themes
-    const toggleTheme = () => {
-        setDarkTheme((prevTheme) => !prevTheme);
-    };
-
-    return (
-        <ProfileProvider>
-            <div
-                style={{
-                    backgroundColor: darkTheme ? '#333' : '#fff',
-                    color: darkTheme ? '#fff' : '#000',
-                    minHeight: '100vh',
-                    padding: '20px',
-                    transition: 'background-color 0.3s, color 0.3s',
-                }}
-            >
-                {/* Theme Toggle Button */}
-                <button
-                    onClick={toggleTheme}
-                    style={{
-                        position: 'absolute',
-                        top: '10px',
-                        right: '10px',
-                        padding: '10px',
-                        borderRadius: '5px',
-                        border: 'none',
-                        backgroundColor: darkTheme ? '#f9f9f9' : '#444',
-                        color: darkTheme ? '#444' : '#fff',
-                        cursor: 'pointer'
-                    }}
-                >
-                    {darkTheme ? 'Light Theme' : 'Dark Theme'}
-                </button>
-
-                {/* Student Information */}
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <h3>Reanne Ashley S.R. Matias</h3>
-                    <p>Section: BSIT 3B</p>
-                </div>
-
-                {/* Login Form or Logged-In Content */}
-                {!isLoggedIn ? (
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            margin: '0 auto',
-                            maxWidth: '300px',
-                            padding: '20px',
-                            border: '1px solid #ccc',
-                            borderRadius: '5px',
-                            backgroundColor: darkTheme ? '#444' : '#f9f9f9'
-                        }}
-                    >
-                        <LoginForm onLogin={handleLogin} />
-                    </div>
-                ) : (
-                    <div style={{ textAlign: 'center' }}>
-                        <StudentInfo />
-                        <button
-                            onClick={handleLogout}
-                            style={{
-                                marginTop: '20px',
-                                padding: '10px 20px',
-                                border: 'none',
-                                borderRadius: '5px',
-                                backgroundColor: '#f44336',
-                                color: 'white',
-                                cursor: 'pointer',
-                                fontSize: '16px',
-                            }}
-                        >
-                            Logout
-                        </button>
-                    </div>
-                )}
-
-                {/* Math Operations Component */}
-                <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                    <MathOperations />
-                </div>
-
-                {/* Calculator Component */}
-                <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                    <Calculator />
-                </div>
-            </div>
-        </ProfileProvider>
-    );
-};
+function App() {
+  return (
+    <div className='App'>
+      <RouterProvider router={router} />
+    </div>
+  );
+}
 
 export default App;
-
-
-
-
-
-
-
-
-
