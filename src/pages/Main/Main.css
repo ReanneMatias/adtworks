@@ -1,58 +1,72 @@
 .Main {
   display: flex;
-  overflow-y: auto;
+  overflow: hidden;
   max-height: 100vh;
+  background-color: #121212; /* Dark theme to suit a movie watching environment */
+  font-family: 'Arial', sans-serif;
 }
 
 .Main .container {
   display: flex;
+  flex-direction: column;
   width: 100vw;
+  height: 100vh;
 }
 
 .Main .container .outlet {
-  flex-grow: 3;
-  padding: 1rem;
-  background-color: #f9f9f9; /* Light background for content area */
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #181818;
 }
 
 .Main .container .navigation {
-  background-color: #1e1e2f; /* Darker background for navigation */
-  padding-top: 40px;
-  height: 100vh;
-  color: #ffffff; /* White text color for better contrast */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  height: 80px;
+  background-color: #222;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); /* Soft shadow for depth */
 }
 
 .Main .container .navigation ul {
   list-style: none;
-  overflow: hidden;
   padding: 0;
   margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .Main .container .navigation ul li {
-  padding: 10px 30px; /* Adjusted padding for a cleaner look */
-  transition: background 0.3s, color 0.3s; /* Smooth transition for background and text color */
-}
-
-.Main .container .navigation ul li.active,
-.Main .container .navigation ul li:hover {
-  background: #3f51b5; /* Blue background on hover and active */
-  color: #ffffff; /* Keep text white for readability */
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #b0b0b0;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .Main .container .navigation ul li a {
   text-decoration: none;
-  color: inherit; /* Inherit the color from parent */
-  font-weight: 500; /* Slightly bold for better visibility */
+  color: #b0b0b0;
+  font-size: 18px;
 }
 
-.Main .container .navigation ul li.logout {
+.Main .container .navigation ul li:hover,
+.Main .container .navigation ul li.active {
+  background-color: #333;
+  transform: scale(1.1);
+}
+
+.Main .container .navigation ul li.logout,
+.Main .container .navigation ul li.login {
   cursor: pointer;
-  background: #ff4757; /* Red background for logout */
-  color: white; /* White text for logout */
+  color: #e74c3c; /* Red color for logout/login to make it stand out */
 }
 
-.Main .container .navigation ul li.logout:hover {
-  background: #e84118; /* Darker red on hover */
+.Main .container .navigation ul li.logout:hover,
+.Main .container .navigation ul li.login:hover {
+  color: #edff95; /* Gold on hover to maintain the formal look */
 }
+
+
